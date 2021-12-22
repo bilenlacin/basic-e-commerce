@@ -149,9 +149,6 @@ input {
   width: 100%;
 }
 @media only screen and (max-width: 876px) {
-  .form {
-    display: none;
-  }
   .container {
     display: flex;
     flex-direction: column;
