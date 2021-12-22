@@ -7,7 +7,7 @@ import Loading from '../components/Loading';
 import LoadMore from '../components/LoadMore';
 import Footer from '../components/Footer';
 
-const HomeScreen = ({ showSide, setShowSide }) => {
+const HomeScreen = ({ showSide, search }) => {
   const productDetails = useSelector((state) => state.productSlice);
   const categories = useSelector((state) => state.productSlice.categories);
   const { loading, products } = productDetails;
@@ -25,9 +25,21 @@ const HomeScreen = ({ showSide, setShowSide }) => {
         {showSide && <Sidebar categories={categories} />}
 
         <div className='cart-items'>
-          {products.slice(0, visible).map((product) => (
-            <Products key={product.id} product={product} />
-          ))}
+          {products
+            .filter((product) => {
+              if (search === '') {
+                return product;
+              } else if (
+                product.title.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return product;
+              }
+              return false;
+            })
+            .slice(0, visible)
+            .map((product) => (
+              <Products key={product.id} product={product} />
+            ))}
         </div>
       </div>
       {loading ? (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Navbar = ({ showSide, setShowSide }) => {
+const Navbar = ({ showSide, setShowSide, setSearch }) => {
   return (
     <div className='navigation-bar'>
       <header className='row'>
@@ -16,7 +16,12 @@ const Navbar = ({ showSide, setShowSide }) => {
         <div className='form'>
           <form action='' className='search-form'>
             <i className='fas fa-search'></i>
-            <input type='text'></input>
+            <input
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              type='text'
+            ></input>
           </form>
         </div>
         <div>

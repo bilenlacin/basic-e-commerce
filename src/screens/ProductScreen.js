@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
-import Rating from '../components/Rating';
 import { fetchProductDetails } from '../redux/productSlice';
 
 const ProductScreen = () => {

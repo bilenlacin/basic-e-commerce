@@ -13,6 +13,7 @@ function App() {
   const productDetails = useSelector((state) => state.productSlice);
   const { error } = productDetails;
   const [showSide, setShowSide] = useState(true);
+  const [search, setSearch] = useState('');
   return (
     <div>
       {error ? (
@@ -20,13 +21,21 @@ function App() {
       ) : (
         <div>
           <BrowserRouter>
-            <Navbar showSide={showSide} setShowSide={setShowSide} />
+            <Navbar
+              setSearch={setSearch}
+              showSide={showSide}
+              setShowSide={setShowSide}
+            />
             <Routes>
               <Route
                 exact
                 path='/'
                 element={
-                  <HomeScreen showSide={showSide} setShowSide={setShowSide} />
+                  <HomeScreen
+                    search={search}
+                    showSide={showSide}
+                    setShowSide={setShowSide}
+                  />
                 }
               />
               <Route path='/products/:id' element={<ProductScreen />} />
