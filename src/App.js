@@ -1,23 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomeScreen from './screens/HomeScreen';
+import ProductScreen from './screens/ProductScreen';
+import Navbar from './components/Navbar';
+
+import { useSelector } from 'react-redux';
+import Error from './components/Error';
+import CategoryPage from './screens/CategoryPage';
+import { useState } from 'react';
 
 function App() {
+  const productDetails = useSelector((state) => state.productSlice);
+  const { error } = productDetails;
+  const [showSide, setShowSide] = useState(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {error ? (
+        <Error error={error} />
+      ) : (
+        <div>
+          <BrowserRouter>
+            <Navbar showSide={showSide} setShowSide={setShowSide} />
+            <Routes>
+              <Route
+                exact
+                path='/'
+                element={
+                  <HomeScreen showSide={showSide} setShowSide={setShowSide} />
+                }
+              />
+              <Route path='/products/:id' element={<ProductScreen />} />
+              <Route
+                path={`/products/category/:productCtgry`}
+                element={<CategoryPage />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      )}
     </div>
   );
 }
